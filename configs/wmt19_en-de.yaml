@@ -1,0 +1,18 @@
+---
+dataset:
+  org: "wmt19"
+  lang: "en-de"
+
+method:
+  - "train"
+  - "test"
+  - "inference"
+
+# example parameters
+epochs: 50
+dimensions:
+  - 5
+  - 30
+  - 50
+  - 20
+batch_size: 32
