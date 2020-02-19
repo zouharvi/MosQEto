@@ -4,6 +4,8 @@ class Worker:
         # TODO
 
     def test(self, options):
+        sentence = options['dataset'].train.data[0]
+        print(sentence)
         print("Doing some positive testing on my test data")
         # TODO
 
