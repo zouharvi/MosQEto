@@ -1,4 +1,4 @@
-class Worker:
+class Dummy:
     def train(self, options):
         print("Doing some heavy training with a train dataset of size:", len(options['dataset'].train.data))
         # TODO

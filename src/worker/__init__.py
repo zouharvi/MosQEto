@@ -1,1 +1,1 @@
-from .worker import Worker
+from .dummy import *

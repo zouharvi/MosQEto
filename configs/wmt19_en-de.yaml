@@ -4,9 +4,11 @@ dataset:
   lang: "en-de"
 
 method:
-  - "train"
-  - "test"
-  - "inference"
+  - train
+  - test
+  - inference
+
+worker: Dummy
 
 # example parameters
 epochs: 50

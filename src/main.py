@@ -2,7 +2,7 @@
 import argparse
 import yaml
 from dataset import Dataset
-from worker import Worker
+import worker
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='MosQEto')
@@ -24,8 +24,12 @@ if __name__ == '__main__':
         print(f'No `method` key in config, nothing to do.')
         exit()
     
+    # dynamically load a worker class
     plan = config.pop('method')
-    worker = Worker()
+    if hasattr(worker, config['worker']):
+        worker = getattr(worker, config['worker'])()
+    else:
+        print(f'`{config["worker"]} class not found')
 
     for planI in plan:
         if hasattr(worker, planI):
