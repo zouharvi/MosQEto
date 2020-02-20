@@ -1,5 +1,5 @@
 # Our custom rules
-data_raw/
+data_*/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

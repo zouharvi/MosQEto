@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import argparse
 import yaml
-from dataset import Dataset
 import worker
 
 if __name__ == '__main__':
@@ -17,8 +16,6 @@ if __name__ == '__main__':
             raise Exception(f'Additional argument is not a key=value pair ({arg}).')
         config[sp[0]] = sp[1]
 
-    if 'dataset' in config:
-        config['dataset'] = Dataset(config['dataset']['lang'], config['dataset']['org'])
     
     if 'method' not in config:
         print(f'No `method` key in config, nothing to do.')

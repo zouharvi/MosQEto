@@ -1,12 +1,14 @@
 ---
-dataset:
+dataset_load:
   org: "wmt19"
   lang: "en-de"
 
+dataset_save: "data_dummy/en-de/"
+
 method:
-  - Dummy:train
+  - Loader:load
   - Dummy:test
-  - Dummy:inference
+  - Loader:save
 
 # example parameters
 epochs: 50
