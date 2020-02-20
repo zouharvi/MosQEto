@@ -38,10 +38,10 @@ class Dataset:
             for i in range(len(self.tgt)):
                 if i == len(self.tgt)-1:
                     obj += self.tgt[i].rstrip('\n').rjust(maxTgt) + ' '
-                    obj += f'{pTag(self.tags[2*i+1])} ^{pTag(self.tags[2*i])} {pTag(self.tags[2*i+2])}∨\n'
+                    obj += f'{pTag(self.tags[2*i+1])} ↑{pTag(self.tags[2*i])} ↓{pTag(self.tags[2*i+2])}\n'
                 else:
                     obj += self.tgt[i].rjust(maxTgt) + ' '
-                    obj += f'{pTag(self.tags[2*i+1])} ^{pTag(self.tags[2*i])}\n'
+                    obj += f'{pTag(self.tags[2*i+1])} ↑{pTag(self.tags[2*i])}\n'
                     
             if not self.blind:
                 obj += f'hter: {self.hter}'

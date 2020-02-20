@@ -5,13 +5,13 @@ A tool to experiment with machine translation quality estimation, possibly with 
 Our goal is to create a QE tool, which could be deployable to the [Ptakopět/Bergamot](https://ptakopet.vilda.net) project, but also on which we could experiment with QE models. We are interested mostly in word-level QE. If all goes well, we would like to participate in the WMT QE shared task. This project is split into several phases, with most important being the first phase and depending on the amount of work it takes, we would like to follow up also with phases two and three.
 
 ### Phase 1
-Create a functioning framework with a simple trainable neural network QE model (simple encoder-decoder or replicate/deploy [QUETCH](https://www.aclweb.org/anthology/W15-3037.pdf)). This is to create end-to-end functioning QE system, which can be run on a server and tested in Ptakopět. It is not expected to perform well, but comparable to QUETCH. This is the hardest part and it is to test, that all of the pipeline is functioning properly. It should serve as a stepping stone for more complex models.
+Create a functioning framework with a simple trainable neural network QE model (OpenKiwi's [QUETCH](https://www.aclweb.org/anthology/W15-3037.pdf)). This is to create end-to-end functioning QE system, which can be run on a server and tested in Ptakopět (if time allows). It is not expected to perform well. This is to test, that all of the pipeline is functioning properly.
 
 ### Phase 2
 Think about how can we train a QE system with limited amount of QE data, but almost infinite parallel texts. The focus of this phase is QE data synthesis.
 
 ### Phase 3
-Compare with OpenKiwi (outside of MosQEto) and possibly iteirate with improved data.
+Compare with OpenKiwi's [Predictor-Estimator](https://dl.acm.org/doi/10.1145/3109480) and possibly improve with our data.
 
 ### Other ideas
 We could also try any of the following ideas. They are expected to fail, but it can be interesting to think about how they fail and describe them in a paper.

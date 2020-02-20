@@ -26,14 +26,23 @@ if __name__ == '__main__':
     
     # dynamically load a worker class
     plan = config.pop('method')
-    if hasattr(worker, config['worker']):
-        worker = getattr(worker, config['worker'])()
-    else:
-        print(f'`{config["worker"]} class not found')
 
-    for planI in plan:
-        if hasattr(worker, planI):
-            func = getattr(worker, planI)
+    workers = {}
+    for wMethod in plan:
+        workerName, method = wMethod.split(':')
+
+        if workerName in workers:
+            workerObj = workers[workerName]
+        else:
+            if hasattr(worker, workerName):
+                workerObj = getattr(worker, workerName)()
+            else:
+                print(f'`{workerName}` class not found')
+                continue
+        workers[workerName] = workerObj
+
+        if hasattr(workerObj, method):
+            func = getattr(workerObj, method)
             func(config)
         else:
-            print(f'`{planI}` was not found on Worker.')
+            print(f'`{method}` was not found on {workerName}.')
