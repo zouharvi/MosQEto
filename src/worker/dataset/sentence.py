@@ -16,22 +16,27 @@ class Sentence():
             self.alignment = [(int(x.split('-')[0]), int(x.split('-')[1])) for x in alignment.split(' ')]
 
     def __str__(self):
-        obj = ' '.join(self.src)
-        maxTgt = max([len(x) for x in self.tgt])
-
         def pTag(tag):
             return '1' if tag else '0'
 
+        topline = ''.rjust(60, '-')
+
+        if len(self.tgt) == 0:
+            return '<Sentence Missing>'
+
+        tgtLine = ' '
+        qeLine = ''
+
         for i in range(len(self.tgt)):
-            if i == len(self.tgt)-1:
-                obj += self.tgt[i].rstrip('\n').rjust(maxTgt) + ' '
-                obj += f'{pTag(self.tags[2*i+1])} ↑{pTag(self.tags[2*i])} ↓{pTag(self.tags[2*i+2])}\n'
-            else:
-                obj += self.tgt[i].rjust(maxTgt) + ' '
-                obj += f'{pTag(self.tags[2*i+1])} ↑{pTag(self.tags[2*i])}\n'
-                
-        if hasattr(self, 'hter'):
-            obj += f'hter: {self.hter}'
+            word = self.tgt[i]
+            tgtLine += word + ' '
+            qeLine += pTag(self.tags[2*i])
+            qeLine += pTag(self.tags[2*i+1])
+            qeLine += ''.rjust(len(word)-1)
+
+        return f'{topline}\n{" ".join(self.src)}\n{tgtLine}\n{qeLine}'
+
+        # if hasattr(self, 'hter'):
+        #     obj += f'hter: {self.hter}'
 
         # we omit alignment, tags_src and pe for now
-        return obj
