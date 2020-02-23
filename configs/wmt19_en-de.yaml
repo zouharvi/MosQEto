@@ -18,3 +18,5 @@ dimensions:
   - 50
   - 20
 batch_size: 32
+use_kiwi: true
+quetch_config: "../configs/kiwi_quetch.yaml"
