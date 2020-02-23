@@ -6,5 +6,17 @@ dataset_save: "data_dummy/en-de/"
 
 method:
   - Loader:load
-  - Dummy:test
+  - Quetch:train
+  - Quetch:inference
   - Loader:save
+
+# example parameters
+epochs: 50
+dimensions:
+  - 5
+  - 30
+  - 50
+  - 20
+batch_size: 32
+quetch_train: "../configs/quetch_train.yaml"
+quetch_test: "../configs/quetch_test.yaml"

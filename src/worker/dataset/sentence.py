@@ -30,8 +30,9 @@ class Sentence():
         for i in range(len(self.tgt)):
             word = self.tgt[i]
             tgtLine += word + ' '
-            qeLine += pTag(self.tags[2*i])
-            qeLine += pTag(self.tags[2*i+1])
+            if hasattr(self, 'tags'):
+                qeLine += pTag(self.tags[2*i])
+                qeLine += pTag(self.tags[2*i+1])
             qeLine += ''.rjust(len(word)-1)
 
         return f'{topline}\n{" ".join(self.src)}\n{tgtLine}\n{qeLine}'
