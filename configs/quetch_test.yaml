@@ -33,20 +33,20 @@ load-model: runs/quetch/latest_epoch/model.torch
 ##source-embeddings: path/to/source/embeddings_pkl.tar.bz2
 ##target-embeddings: path/to/target/embeddings_pkl.tar.bz2
 
-##
-## TRAINING OPTIONS
-##
-#epochs: 10
-#train-batch-size: 1
-#valid-batch-size: 1
+#
+# TRAINING OPTIONS
+#
+epochs: 10
+train-batch-size: 64
+valid-batch-size: 64
 
-#log-interval: 100
-#checkpoint-save: true
-#checkpoint-keep-only-best: 1
-#checkpoint-early-stop-patience: 10
+log-interval: 100
+checkpoint-save: true
+checkpoint-keep-only-best: 1
+checkpoint-early-stop-patience: 10
 
-#optimizer: adam
-#learning-rate: 0.001
+optimizer: adam
+learning-rate: 0.001
 
 #
 # DATA OPTIONS
