@@ -1,0 +1,10 @@
+---
+dataset_load:
+  - "wmt19/en-de"
+
+method:
+  - Loader:load
+  - Quetch:train
+
+quetch_train: "./configs/openkiwi/quetch_train.yaml"
+quetch_test: "./configs/openkiwi/quetch_test.yaml"

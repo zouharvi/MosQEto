@@ -18,5 +18,6 @@ method:
   - Loader:save
 
 generator:
-  gap_prob: 0.2
-  unigram_add_prob: 0.05
+  gap_prob: 0.01
+  add_unigram_prob: 0.05
+  create_unigram_prob: 0.05
