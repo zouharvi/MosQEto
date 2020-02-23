@@ -40,3 +40,6 @@ class Sentence():
         #     obj += f'hter: {self.hter}'
 
         # we omit alignment, tags_src and pe for now
+
+    def add_ok_tags(self):
+        self.tags = [True]*(2*len(self.tgt)+1)

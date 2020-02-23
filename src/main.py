@@ -16,11 +16,12 @@ if __name__ == '__main__':
             raise Exception(f'Additional argument is not a key=value pair ({arg}).')
         config[sp[0]] = sp[1]
 
-    
     if 'method' not in config:
         print(f'No `method` key in config, nothing to do.')
         exit()
     
+    config['dataset'] = worker.dataset.Dataset()
+
     # dynamically load a worker class
     plan = config.pop('method')
 
