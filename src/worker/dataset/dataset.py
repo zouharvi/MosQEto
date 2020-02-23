@@ -53,11 +53,12 @@ class Dataset:
         return ( datadir / f'{lang1}-{lang2}.{lang1}' ), ( datadir / f'{lang1}-{lang2}.{lang2}' ) 
 
     def _set_opus_tech(self):
-        self.train.readParallel(*self._get_opus('QED', 'v2.0a', 'de', 'en'))
+        self.train.readParallel(*self._get_opus('KDE4', 'v2', 'de', 'en'))
         self.train.readParallel(*self._get_opus('GNOME', 'v1', 'de', 'en'))
         self.train.readParallel(*self._get_opus('Ubuntu', 'v14.10', 'de', 'en'))
         self.train.readParallel(*self._get_opus('PHP', 'v1', 'de', 'en'))
         print(f'Loaded technical domain from OPUS, {len(self.train.data)} sentences in total')
+        self.train.add_alignment()
 
     def __init__(self):
         # we may be wasting memory by always creating such data, but hopefully they are stored efficiently
@@ -68,7 +69,6 @@ class Dataset:
 
         self._datafolder = pathlib.Path().parent / 'data_raw'
         self._datafolder.mkdir(parents=True, exist_ok=True)
-
 
     def add(self, name):
         name = name.split('/')

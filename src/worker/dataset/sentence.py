@@ -13,7 +13,11 @@ class Sentence():
         if hter:
             self.hter = float(hter)
         if alignment:
-            self.alignment = [(int(x.split('-')[0]), int(x.split('-')[1])) for x in alignment.split(' ')]
+            self.add_alignment(alignment)
+
+    def add_alignment(self, alignment):
+        alignment = alignment.rstrip('\n')
+        self.alignment = [(int(x.split('-')[0]), int(x.split('-')[1])) for x in alignment.split(' ')]
 
     def __str__(self):
         def pTag(tag):

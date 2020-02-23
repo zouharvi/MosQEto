@@ -16,3 +16,7 @@ method:
   - Generator:mix
   # saves to data_all/en-de
   - Loader:save
+
+generator:
+  gap_prob: 0.2
+  unigram_add_prob: 0.05

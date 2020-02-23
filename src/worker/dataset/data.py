@@ -1,4 +1,6 @@
 from .sentence import Sentence
+import subprocess
+import os
 import pathlib
 
 class Data():
@@ -39,6 +41,34 @@ class Data():
             sentence.add_ok_tags()
             self.data.append(sentence)
 
+    def add_alignment(self):
+        print('Doing alignment (this may take a few minutes)')
+        
+        with open('.tmp', 'w') as f:
+            out = []
+            for s in self.data:
+                out.append(f'{" ".join(s.src)} ||| {" ".join(s.tgt)}')
+            f.write("\n".join(out))
+        command = './fast_align/build/fast_align -i .tmp'
+        process = subprocess.Popen(command.split(), stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        output, _error = process.communicate()
+        os.remove('.tmp')
+        # print(_error)
+        
+        alignments = output.decode('utf-8').split('\n')
+        # last line is empty
+        alignments.pop()
+
+        newdata = []
+        for s, a in zip(self.data, alignments):
+            # removing sentences, which were not alignable
+            if a == '':
+                continue
+            s.add_alignment(a)
+            newdata.append(s)
+        self.data = newdata
+
+
     def save(self, dirName, name):
         root = (pathlib.Path(dirName) / name).absolute()
         pathlib.Path(root).mkdir(parents=True, exist_ok=True)
@@ -50,6 +80,7 @@ class Data():
                 print(' '.join(sentence.src), file=fSRC)
 
         # we are using the last sentence for testing whether all of the sentences have such attributes
+        # this is very much not correct
 
         if hasattr(sentence, 'alignment'):
             with open(f'{fpref}src-mt.alignments', 'w') as fPE:
