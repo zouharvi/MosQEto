@@ -29,8 +29,15 @@ class Data():
         for args in zip(src, tgt, alignment):
             self.data.append(Sentence(*args, pe=None, tags=None, tags_src=None, hter=None))
 
-    def readParallel(self, dir, name):
-        pass
+    def readParallel(self, file1, file2):
+        with open(file1, 'r') as f:
+            src = f.readlines()
+        with open(file2, 'r') as f:
+            tgt = f.readlines()
+        for args in zip(src, tgt):
+            sentence = Sentence(*args, alignment=None, pe=None, tags=None, tags_src=None, hter=None)
+            sentence.add_ok_tags()
+            self.data.append(sentence)
 
     def save(self, dirName, name):
         root = (pathlib.Path(dirName) / name).absolute()

@@ -1,7 +1,6 @@
 ---
 dataset_load:
-  org: "wmt19"
-  lang: "en-de"
+  - "wmt19/en-de"
 
 dataset_save: "data_dummy/en-de/"
 

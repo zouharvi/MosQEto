@@ -1,0 +1,18 @@
+---
+dataset_load:
+  - "opus/tech/en-de"
+  - "wmt19/en-de"
+
+dataset_save: "data_all/en-de/"
+
+method:
+  # loads the OPUS en-de data
+  - Loader:load
+  # so far this generates gap data
+  # - Generator:generate
+  # loads another data (wmt19/en-de)
+  - Loader:load
+  # mixes the loaded data
+  - Generator:mix
+  # saves to data_all/en-de
+  - Loader:save
