@@ -15,7 +15,6 @@ class Quetch:
         """ Returns a list of predictions.
         A list of lists, number for each word in sentence."""
         data = options['dataset'].blind.data
-        print(options)
 
         kiwi_config = kb.load_kiwi_config(options['quetch_test'])
         pred = kiwi.load_model(kiwi_config['load-model'])
