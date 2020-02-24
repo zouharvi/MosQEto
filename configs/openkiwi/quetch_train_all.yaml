@@ -4,6 +4,7 @@ model: quetch
 
 output-dir: runs/quetch
 wmt18-format: true
+predict-gaps: false
 
 #window-size: 3
 #max-aligned: 5

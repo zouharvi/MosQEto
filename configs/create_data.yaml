@@ -14,6 +14,8 @@ method:
   - Loader:load
   # mixes the loaded data
   - Generator:mix
+  # take only gap data
+  - DataUtils:gap_only
   # saves to data_all/en-de
   - Loader:save
 

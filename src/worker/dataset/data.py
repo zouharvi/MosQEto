@@ -79,30 +79,27 @@ class Data():
                 print(' '.join(sentence.tgt), file=fMT)
                 print(' '.join(sentence.src), file=fSRC)
 
-        # we are using the last sentence for testing whether all of the sentences have such attributes
-        # this is very much not correct
-
-        if hasattr(sentence, 'alignment'):
+        if all(hasattr(s, 'alignment') for s in self.data):
             with open(f'{fpref}src-mt.alignments', 'w') as fPE:
                 for sentence in self.data:
                     print(' '.join([f'{x[0]}-{x[1]}' for x in sentence.alignment]), file=fPE)
 
-        if hasattr(sentence, 'pe'):
+        if all(hasattr(s, 'pe') for s in self.data):
             with open(f'{fpref}pe', 'w') as fPE:
                 for sentence in self.data:
                     print(' '.join(sentence.pe), file=fPE)
             
-        if hasattr(sentence, 'tags'):
+        if all(hasattr(s, 'tags') for s in self.data):
             with open(f'{fpref}tags', 'w') as fTAGS:
                 for sentence in self.data:
                     print(' '.join(['OK' if x else 'BAD' for x in sentence.tags]), file=fTAGS)
 
-        if hasattr(sentence, 'tags_src'):
+        if all(hasattr(s, 'tags_src') for s in self.data):
             with open(f'{fpref}source_tags', 'w') as fTAGSSRC:
                 for sentence in self.data:
                     print(' '.join(['OK' if x else 'BAD' for x in sentence.tags_src]), file=fTAGSSRC)
 
-        if hasattr(sentence, 'hter'):
+        if all(hasattr(s, 'hter') for s in self.data):
             with open(f'{fpref}hter', 'w') as fHTER:
                 for sentence in self.data:
                     print(sentence.hter, file=fHTER)
