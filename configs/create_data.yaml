@@ -2,6 +2,7 @@
 dataset_load:
   - "opus/tech/en-de"
   - "wmt19/en-de"
+loader_align: false
 
 dataset_save: "data_all/"
 
@@ -9,17 +10,19 @@ method:
   # loads the OPUS en-de data
   - Loader:load
   # so far this generates gap data
-  # - Generator:generate
-  # loads another data (wmt19/en-de)
+  - Generator:generate
+  - DataUtils:info
+  # # loads another data (wmt19/en-de)
   - Loader:load
-  # mixes the loaded data
+  # # mixes the loaded data
   - Generator:mix
-  # take only gap data
-  - DataUtils:gap_only
-  # saves to data_all/en-de
+  - DataUtils:info
+  # # take only gap data
+  # - DataUtils:gap_only
+  # # saves to data_all/en-de
   - Loader:save
 
 generator:
-  gap_prob: 0.01
+  remove_prob: 0.05
   add_unigram_prob: 0.05
-  create_unigram_prob: 0.05
+  change_unigram_prob: 0.05

@@ -52,13 +52,14 @@ class Dataset:
 
         return ( datadir / f'{lang1}-{lang2}.{lang1}' ), ( datadir / f'{lang1}-{lang2}.{lang2}' ) 
 
-    def _set_opus_tech(self):
+    def _set_opus_tech(self, options):
         self.train.readParallel(*self._get_opus('KDE4', 'v2', 'de', 'en'))
         self.train.readParallel(*self._get_opus('GNOME', 'v1', 'de', 'en'))
         self.train.readParallel(*self._get_opus('Ubuntu', 'v14.10', 'de', 'en'))
         self.train.readParallel(*self._get_opus('PHP', 'v1', 'de', 'en'))
         print(f'Loaded technical domain from OPUS, {len(self.train.data)} sentences in total')
-        self.train.add_alignment()
+        if ('loader_align' not in options) or (options['loader_align']):
+            self.train.add_alignment()
 
     def __init__(self):
         # we may be wasting memory by always creating such data, but hopefully they are stored efficiently
@@ -70,7 +71,7 @@ class Dataset:
         self._datafolder = pathlib.Path().parent / 'data_raw'
         self._datafolder.mkdir(parents=True, exist_ok=True)
 
-    def add(self, name):
+    def add(self, name, options=dict()):
         name = name.split('/')
         if name[0] == 'wmt19':
             if name[1] in ['en-de', 'en-ru']:
@@ -78,7 +79,7 @@ class Dataset:
                 return
         elif name[0] == 'opus' and name[1] == 'tech':
             if name[2] in ['en-de']:
-                self._set_opus_tech()
+                self._set_opus_tech(options)
                 return
 
         raise Exception(f"Unsupported dataset {name}")

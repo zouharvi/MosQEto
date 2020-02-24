@@ -4,7 +4,7 @@ import pathlib
 class Loader:
     def load(self, options):
         dataset_name = options['dataset_load'].pop(0)
-        options['dataset'].add(dataset_name)
+        options['dataset'].add(dataset_name, options)
 
     def save(self, options):
         dirName = options['dataset_save']
