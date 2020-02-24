@@ -3,7 +3,7 @@ dataset_load:
   - "opus/tech/en-de"
   - "wmt19/en-de"
 
-dataset_save: "data_all/en-de/"
+dataset_save: "data_all/"
 
 method:
   # loads the OPUS en-de data
