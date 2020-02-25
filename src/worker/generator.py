@@ -20,7 +20,7 @@ class Generator:
         to_add = []
         for s in options['dataset'].train.data:
             if s.pe:
-                to_add.append(Sentence(" ".join(s.src), " ".join(s.pe), None, None, " ".join((len(s.pe)+1)*"OK"), None, None))
+                to_add.append(Sentence(" ".join(s.src), " ".join(s.pe), None, None, " ".join((2*len(s.pe)+1)*["OK"]), None, None))
                 s.pe = None
         options['dataset'].train.data += to_add
 
@@ -43,34 +43,35 @@ class Generator:
             sentence = train.data[i]
             new_tgt = []
             new_tags = []
+            skip_next = False
             for word in sentence.tgt:
                 tag1 = sentence.tags.pop(0)
                 tag2 = sentence.tags.pop(0)
-                if random() < change_p:
+                if not skip_next and random() < change_p:
                     new_tags.append(tag1)
                     new_tags.append(False)
                     new_tgt.append(choice(all_words))
-                else:
+                elif not skip_next and random() < remove_p:
+                    skip_next = True
+                elif not skip_next and random() < add_p:
+                    # previous gap
+                    new_tags.append(True)
+                    # inserted word
+                    new_tags.append(False)
+                    # next gap
                     new_tags.append(tag1)
+                    # next word
+                    new_tags.append(tag2)
+                    new_tgt.append(choice(all_words))
+                    new_tgt.append(word)
+                else:
+                    if skip_next:
+                        new_tags.append(False)
+                        skip_next = False
+                    else:
+                        new_tags.append(tag1)
                     new_tags.append(tag2)
                     new_tgt.append(word)
-                # elif random() < add_p:
-                #     new_tgt.append(choice(all_words))
-                #     # the space is probably ok
-                #     new_tags.append(True)
-                #     new_tags.append(False)
-                #     new_tgt.append(word)
-                #     new_tags.append(sentence.tags.pop(0))
-                #     new_tags.append(sentence.tags.pop(0))
-                # elif random() < remove_p:
-                #     sentence.tags.pop(0)
-                #     sentence.tags.pop(0)
-                #     continue
-                # else:
-                #     new_tgt.append(word)
-                #     new_tags.append(sentence.tags.pop(0))
-                #     new_tags.append(sentence.tags.pop(0))
-
             # final gap
             new_tags.append(sentence.tags.pop(0))
             sentence.tgt = new_tgt

@@ -14,6 +14,7 @@ method:
   - Loader:load
   - DataUtils:info
   - Generator:expand_post_edited
+  - DataUtils:info
   - Generator:supersample:4
   - DataUtils:info
   - Loader:save

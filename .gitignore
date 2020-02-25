@@ -1,6 +1,7 @@
 # Our custom rules
 data_*/
 runs/*
+nohup.out
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
