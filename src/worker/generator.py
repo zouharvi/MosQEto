@@ -4,9 +4,7 @@ from random import shuffle, random, choice
 class Generator:
     def mix(self, options):
         print('Mixing training datasets')
-        print(options['dataset'].train.data[0])
         shuffle(options['dataset'].train.data)
-        print(options['dataset'].train.data[0])
 
     def generate(self, options):
         print('Generating (this may take a while)')

@@ -42,7 +42,7 @@ class Data():
             self.data.append(sentence)
 
     def add_alignment(self):
-        print('Doing alignment (this may take a few minutes)')
+        print('Doing alignment (this may take a while)')
         
         with open('.tmp', 'w') as f:
             out = []
