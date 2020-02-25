@@ -1,7 +1,7 @@
 from .dataset import Dataset
 
 class DataUtils:
-    def gap_only(self, options):
+    def gap_only(self, options, call=[]):
         for s in options['dataset'].train.data:
             s.tags = s.tags[::2]
         for s in options['dataset'].dev.data:
@@ -9,7 +9,7 @@ class DataUtils:
         for s in options['dataset'].test.data:
             s.tags = s.tags[::2]
 
-    def info(self, options):
+    def info(self, options, call=[]):
         t_tgt = 0
         f_tgt = 0
         t_gap = 0

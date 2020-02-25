@@ -73,6 +73,10 @@ class Data():
         root = (pathlib.Path(dirName) / name).absolute()
         pathlib.Path(root).mkdir(parents=True, exist_ok=True)
         
+        # WMT19 naming scheme
+        if name == 'blind':
+            name = 'test'
+        
         fpref = f'{root}/{name}.'
         with open(f'{fpref}mt', 'w') as fMT, open(f'{fpref}src', 'w') as fSRC:
             for sentence in self.data:

@@ -2,17 +2,23 @@ from .dataset import Dataset
 import pathlib
 
 class Loader:
-    def load(self, options):
-        dataset_name = options['dataset_load'].pop(0)
-        options['dataset'].add(dataset_name, options)
+    def flush(self, options, call):
+        options['dataset'] = Dataset()
 
-    def save(self, options):
-        dirName = options['dataset_save']
+    def load(self, options, call):
+        dataset_name = options['dataset_load'].pop(0)
+        align = True
+        if 'noalign' in call:
+            align = False
+        options['dataset'].add(dataset_name, options, align)
+
+    def save(self, options, call):
+        dirName = options['dataset_save'].pop(0)
         pathlib.Path(dirName).mkdir(parents=True, exist_ok=True)
         dataset = options['dataset']
         if len(dataset.train.data) != 0:
             dataset.train.save(dirName, 'train')
-            print(f'saving {len(dataset.train.data)}')
+            print(f'Saving {len(dataset.train.data)} sentences to {dirName}')
         if len(dataset.dev.data) != 0:
             dataset.dev.save(dirName, 'dev')
         if len(dataset.test.data) != 0:

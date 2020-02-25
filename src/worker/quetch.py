@@ -3,15 +3,11 @@ import kiwi
 import worker.kiwibase as kb
 
 class Quetch:
-    def train(self, options):
+    def train(self, options, call=[]):
         print("Doing some heavy training with a train dataset of size:", len(options['dataset'].train.data))
         kiwi.train(options['quetch_train'])
 
-    def test(self, options):
-        raise NotImplementedError()
-        print("Doing some positive testing on my test data")
-
-    def inference(self, options):
+    def inference(self, options, call=[]):
         """ Returns a list of predictions.
         A list of lists, number for each word in sentence."""
         data = options['dataset'].blind.data

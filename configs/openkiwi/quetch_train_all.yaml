@@ -36,7 +36,7 @@ predict-gaps: false
 #
 # TRAINING OPTIONS
 #
-epochs: 10
+epochs: 50
 train-batch-size: 64
 valid-batch-size: 64
 

@@ -27,7 +27,11 @@ if __name__ == '__main__':
 
     workers = {}
     for wMethod in plan:
-        workerName, method = wMethod.split(':')
+        workerName, method, *call_rest = wMethod.split(':')
+        if workerName == 'print':
+            print()
+            print(f'# {method}')
+            continue
 
         if workerName in workers:
             workerObj = workers[workerName]
@@ -41,6 +45,8 @@ if __name__ == '__main__':
 
         if hasattr(workerObj, method):
             func = getattr(workerObj, method)
-            func(config)
+            print()
+            print(f'> {wMethod}')
+            func(config, call_rest)
         else:
             print(f'`{method}` was not found on {workerName}.')

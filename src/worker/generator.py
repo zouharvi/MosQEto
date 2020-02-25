@@ -1,12 +1,30 @@
 from .dataset import Dataset
+from .dataset import Sentence
 from random import shuffle, random, choice
+from copy import deepcopy
 
 class Generator:
-    def mix(self, options):
-        print('Mixing training datasets')
+    def mix(self, options, call):
         shuffle(options['dataset'].train.data)
 
-    def generate(self, options):
+    def supersample(self, options, call):
+        i = 1
+        if len(call) != 0:
+            i = int(call[0])
+        
+        sample = deepcopy(options['dataset'].train.data)
+        for _ in range(i):
+            options['dataset'].train.data += deepcopy(sample)
+
+    def expand_post_edited(self, options, call):
+        to_add = []
+        for s in options['dataset'].train.data:
+            if s.pe:
+                to_add.append(Sentence(" ".join(s.src), " ".join(s.pe), None, None, " ".join((len(s.pe)+1)*"OK"), None, None))
+                s.pe = None
+        options['dataset'].train.data += to_add
+
+    def generate(self, options, call=[]):
         print('Generating (this may take a while)')
         remove_p = options['generator']['remove_prob']
         add_p = options['generator']['add_unigram_prob']
