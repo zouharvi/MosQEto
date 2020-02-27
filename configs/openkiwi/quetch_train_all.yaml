@@ -9,10 +9,10 @@ predict-gaps: false
 #window-size: 3
 #max-aligned: 5
 
-## embeddings
-#source-embeddings-size: 50
+# embeddings
+#source-embeddings-size: 100
 #source-pos-embeddings-size: 20
-#target-embeddings-size: 50
+#target-embeddings-size: 100
 #target-pos-embeddings-size: 20
 
 ## network
@@ -46,7 +46,7 @@ checkpoint-keep-only-best: 1
 checkpoint-early-stop-patience: 10
 
 optimizer: adam
-learning-rate: 0.001
+learning-rate: 0.0001
 
 #
 # DATA OPTIONS
