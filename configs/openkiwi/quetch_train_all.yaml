@@ -4,28 +4,27 @@ model: quetch
 
 output-dir: runs/quetch
 wmt18-format: true
-predict-gaps: false
 
-#window-size: 3
-#max-aligned: 5
+window-size: 3
+max-aligned: 5
 
-# embeddings
-#source-embeddings-size: 100
+## embeddings
+#source-embeddings-size: 50
 #source-pos-embeddings-size: 20
-#target-embeddings-size: 100
+#target-embeddings-size: 50
 #target-pos-embeddings-size: 20
 
-## network
-#hidden-sizes: [40, 40, 50, 50]
-## output-size: 50
-#dropout: 0.0
-#embeddings-dropout: 0.5
-#freeze-embeddings: false
-#bad-weight: 3.0
+# network
+#hidden-sizes: [100, 100, 300]
+# output-size: 50
+dropout: 0.1
+embeddings-dropout: 0.5
+freeze-embeddings: false
+bad-weight: 3.0
 
-## initialization
-#init-support: 0.1
-#init-type: uniform
+# initialization
+init-support: 0.1
+init-type: uniform
 
 #### Pretrained Embedding Options ###
 ## pip-install the polyglot package to use these
@@ -36,7 +35,7 @@ predict-gaps: false
 #
 # TRAINING OPTIONS
 #
-epochs: 50
+epochs: 30
 train-batch-size: 64
 valid-batch-size: 64
 
@@ -46,23 +45,25 @@ checkpoint-keep-only-best: 1
 checkpoint-early-stop-patience: 10
 
 optimizer: adam
-learning-rate: 0.0001
+learning-rate: 0.001
+#learning-rate-decay: 0.92
+#learning-rate-decay-start: 5
 
 #
 # DATA OPTIONS
 #
-train-source: data_all/train/train.src
-train-target: data_all/train/train.mt
-train-target-tags: data_all/train/train.tags
-train-alignments: data_all/train/train.src-mt.alignments
+train-source: data_all/wmt19/en-de/train/train.src
+train-target: data_all/wmt19/en-de/train/train.mt
+train-target-tags: data_all/wmt19/en-de/train/train.tags
+train-alignments: data_all/wmt19/en-de/train/train.src-mt.alignments
 
-valid-source: data_all/dev/dev.src
-valid-target: data_all/dev/dev.mt
-valid-target-tags: data_all/dev/dev.tags
-valid-alignments: data_all/dev/dev.src-mt.alignments
+valid-source: data_all/wmt19/en-de/dev/dev.src
+valid-target: data_all/wmt19/en-de/dev/dev.mt
+valid-target-tags: data_all/wmt19/en-de/dev/dev.tags
+valid-alignments: data_all/wmt19/en-de/dev/dev.src-mt.alignments
 
-## vocabulary
-#source-vocab-min-frequency: 2
-#target-vocab-min-frequency: 2
-#keep-rare-words-with-embeddings: true
-#add-embeddings-vocab: false
+# vocabulary
+source-vocab-min-frequency: 2
+target-vocab-min-frequency: 2
+keep-rare-words-with-embeddings: true
+add-embeddings-vocab: false
