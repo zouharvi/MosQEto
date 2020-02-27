@@ -51,9 +51,9 @@ class Generator:
                     new_tags.append(tag1)
                     new_tags.append(False)
                     new_tgt.append(choice(all_words))
-                elif not skip_next and random() < remove_p:
+                elif False and not skip_next and random() < remove_p:
                     skip_next = True
-                elif not skip_next and random() < add_p:
+                elif False and not skip_next and random() < add_p:
                     # previous gap
                     new_tags.append(True)
                     # inserted word
