@@ -27,12 +27,12 @@ if __name__ == '__main__':
 
     workers = {}
     for wMethod in plan:
-        workerName, method, *call_rest = wMethod.split(':')
-        if workerName == 'print':
+        if not ':' in wMethod:
             print()
-            print(f'# {method}')
+            print(f'# ' + wMethod.strip('"'))
             continue
 
+        workerName, method, *call_rest = wMethod.split(':')
         if workerName in workers:
             workerObj = workers[workerName]
         else:

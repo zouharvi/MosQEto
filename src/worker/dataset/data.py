@@ -64,7 +64,9 @@ class Data():
             # removing sentences, which were not alignable
             if a == '':
                 continue
-            s.add_alignment(a)
+            # there can be cases where we already have an alignment
+            if not hasattr(s, 'alignment'):
+                s.add_alignment(a)
             newdata.append(s)
         self.data = newdata
 

@@ -1,7 +1,13 @@
 from .dataset import Dataset
 import pathlib
+from pathlib import Path
+import shutil
 
 class Loader:
+    def rmdir(self, options, call):
+        if len(call) == 1 and Path(call[0]).is_dir():
+            shutil.rmtree(call[0])
+
     def flush(self, options, call):
         options['dataset'] = Dataset()
 
@@ -14,6 +20,8 @@ class Loader:
 
     def save(self, options, call):
         dirName = options['dataset_save'].pop(0)
+        if Path(dirName).is_dir():
+            shutil.rmtree(dirName)
         pathlib.Path(dirName).mkdir(parents=True, exist_ok=True)
         dataset = options['dataset']
         if len(dataset.train.data) != 0:

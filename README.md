@@ -27,5 +27,5 @@ We could also try any of the following ideas. They are expected to fail, but it 
 ### Division of work
 This is a semestral project by @zouharvi (Vilém Zouhar) and @pixelneo (Ondřej Měkota). Vilém is expected to create the framework , while Ondřej is expected to run the neural network models. Phase 1 is for both, but Vilém should do most of Phase 2 and Ondřej most of Phase 3. The work is expected to happen concurrently.
 
-## Technical details
+### Technical details
 The project is going to be implemented in Python 3, with the deep learning framework TBD (PyTorch or TensorFlow 2+).

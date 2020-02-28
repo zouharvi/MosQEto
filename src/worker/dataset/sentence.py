@@ -8,6 +8,7 @@ class Sentence():
             self.pe  =  pe.rstrip('\n').split(' ')
         if tags:
             self.tags     = [x == 'OK' for x in tags.rstrip('\n').split(' ')]
+            assert(2*len(self.tgt)+1 == len(self.tags))
         if tags_src:
             self.tags_src = [x == 'OK' for x in tags_src.rstrip('\n').split(' ')]
         if hter:

@@ -35,7 +35,7 @@ init-type: uniform
 #
 # TRAINING OPTIONS
 #
-epochs: 30
+epochs: 50
 train-batch-size: 64
 valid-batch-size: 64
 
@@ -52,15 +52,15 @@ learning-rate: 0.001
 #
 # DATA OPTIONS
 #
-train-source: data_raw/wmt19/en-de/train/train.src
-train-target: data_raw/wmt19/en-de/train/train.mt
-train-target-tags: data_raw/wmt19/en-de/train/train.tags
-train-alignments: data_raw/wmt19/en-de/train/train.src-mt.alignments
+train-source: data_all/train/train.src
+train-target: data_all/train/train.mt
+train-target-tags: data_all/train/train.tags
+train-alignments: data_all/train/train.src-mt.alignments
 
-valid-source: data_raw/wmt19/en-de/dev/dev.src
-valid-target: data_raw/wmt19/en-de/dev/dev.mt
-valid-target-tags: data_raw/wmt19/en-de/dev/dev.tags
-valid-alignments: data_raw/wmt19/en-de/dev/dev.src-mt.alignments
+valid-source: data_all/dev/dev.src
+valid-target: data_all/dev/dev.mt
+valid-target-tags: data_all/dev/dev.tags
+valid-alignments: data_all/dev/dev.src-mt.alignments
 
 # vocabulary
 source-vocab-min-frequency: 2

@@ -2,5 +2,5 @@
 method:
   - Quetch:train
 
-quetch_train: "./configs/openkiwi/quetch_train_all.yaml"
+quetch_train: "./configs/openkiwi/quetch_train.yaml"
 quetch_test: "./configs/openkiwi/quetch_test.yaml"

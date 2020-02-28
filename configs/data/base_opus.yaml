@@ -1,0 +1,30 @@
+---
+dataset_load:
+  - "opus/tech/en-de"
+  - "wmt19/en-de"
+
+dataset_save: 
+  - "data_all/"
+
+method:
+  - Loader:rmdir:data_tmp
+  
+  # load opus
+  - Loader:load:noalign
+  - DataUtils:info
+  - Generator:generate
+  - DataUtils:head:7000
+  - DataUtils:info
+
+  # load WMT19
+  - "Loading WMT19"
+  - Loader:load
+  - DataUtils:info
+  
+  - Generator:mix
+  - Loader:save
+
+generator:
+  # remove_prob: 0.05
+  # append_prob: 0.05
+  change_prob: 0.12

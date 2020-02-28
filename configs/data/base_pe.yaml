@@ -1,0 +1,16 @@
+---
+dataset_load:
+  - "wmt19/en-de"
+
+dataset_save: 
+  - "data_all/"
+
+method:
+  - Loader:rmdir:data_tmp
+  # load WMT19, supersample, save to data_tmp/
+  - "Loading WMT19"
+  - Loader:load
+  - Generator:expand_post_edited
+  - DataUtils:info
+  - Generator:mix
+  - Loader:save

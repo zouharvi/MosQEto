@@ -1,0 +1,7 @@
+---
+dataset_load:
+  - "custom/data_all"
+
+method:
+  - Loader:load
+  - DataUtils:info

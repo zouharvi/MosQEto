@@ -23,13 +23,21 @@ class Generator:
                 to_add.append(Sentence(" ".join(s.src), " ".join(s.pe), None, None, " ".join((2*len(s.pe)+1)*["OK"]), None, None))
                 s.pe = None
         options['dataset'].train.data += to_add
+        options['dataset'].train.add_alignment()
 
-    def generate(self, options, call=[]):
-        print('Generating (this may take a while)')
-        remove_p = options['generator']['remove_prob']
-        add_p = options['generator']['add_unigram_prob']
-        change_p = options['generator']['change_unigram_prob']
+    def generate(self, options, call):
+
         all_words = set()
+
+        do_change = 'change_prob' in options['generator']
+        do_remove = 'remove_prob' in options['generator']
+        do_append = 'append_prob' in options['generator']
+        if do_append:
+            append_p = options['generator']['append_prob']
+        if do_remove:
+            remove_p = options['generator']['remove_prob']
+        if do_change:
+            change_p = options['generator']['change_prob']
 
         train = options['dataset'].train
         # take all words
@@ -37,45 +45,49 @@ class Generator:
             all_words.update(sentence.tgt)
         all_words = list(all_words)
 
+        skip_next = False
         for i in range(len(train.data)):
             if i % 5000 == 0:
                 print(f"{i/len(train.data)*100:.2f}%\r", end='')
             sentence = train.data[i]
             new_tgt = []
             new_tags = []
-            skip_next = False
             for word in sentence.tgt:
                 tag1 = sentence.tags.pop(0)
                 tag2 = sentence.tags.pop(0)
-                if not skip_next and random() < change_p:
-                    new_tags.append(tag1)
-                    new_tags.append(False)
-                    new_tgt.append(choice(all_words))
-                elif False and not skip_next and random() < remove_p:
-                    skip_next = True
-                elif False and not skip_next and random() < add_p:
-                    # previous gap
-                    new_tags.append(True)
-                    # inserted word
-                    new_tags.append(False)
-                    # next gap
-                    new_tags.append(tag1)
-                    # next word
-                    new_tags.append(tag2)
-                    new_tgt.append(choice(all_words))
-                    new_tgt.append(word)
-                else:
-                    if skip_next:
+                if not skip_next:
+                    if do_change and random() < change_p:
+                        # and (not word in ['.', '?', '!', '"', "'", ',', '(', ')']):
+                        new_tags.append(tag1)
                         new_tags.append(False)
-                        skip_next = False
+                        new_tgt.append(choice(all_words))
+                    elif do_remove and random() < remove_p:
+                        skip_next = True
+                    elif do_append and random() < append_p:
+                        # previous gap
+                        new_tags.append(True)
+                        # inserted word
+                        new_tags.append(False)
+                        # next gap
+                        new_tags.append(tag1)
+                        # next word
+                        new_tags.append(tag2)
+                        new_tgt.append(choice(all_words))
+                        new_tgt.append(word)
                     else:
                         new_tags.append(tag1)
+                        new_tags.append(tag2)
+                        new_tgt.append(word)
+                else:
+                    new_tags.append(False)
                     new_tags.append(tag2)
                     new_tgt.append(word)
+                    skip_next = False
             # final gap
             new_tags.append(sentence.tags.pop(0))
             sentence.tgt = new_tgt
             sentence.tags = new_tags
 
+        print('100%   ')
         # should we modify the alignment surgically, or do it like this?
         train.add_alignment()
