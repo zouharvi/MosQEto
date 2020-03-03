@@ -28,35 +28,35 @@ class Dataset:
                 tarf = tarfile.open(fileobj=ftpstream, mode="r|gz")
                 tarf.extractall(path=langdir.absolute())
 
-        self.test.readWMT(langdir, 'test')
-        self.dev.readWMT(langdir, 'dev')
-        self.train.readWMT(langdir, 'train')
-        self.blind.readWMTBlind(langdir, f'task1_{lang}_blindtest')
+        self.test.readExists(langdir/'test', 'test')
+        self.dev.readExists(langdir/'dev', 'dev')
+        self.train.readExists(langdir/'train', 'train')
+        self.blind.readExists(langdir/f'task1_{lang}_blindtest', 'test')
         print(f'Loaded WMT19, {len(self.train.data)} train sentences in total')
 
     def _get_opus(self, name, ver, lang1, lang2):
         datadir = self._datafolder / 'opus' / name
         if not datadir.exists():
             print(f'opus/{name} folder not found, downloading')
-            datadir.mkdir(parents=True, exist_ok=True)
+            (datadir/f'{lang1}-{lang2}').mkdir(parents=True, exist_ok=True)
 
             URL = f'https://object.pouta.csc.fi/OPUS-{name}/{ver}/moses/{lang1}-{lang2}.txt.zip'
             resp = urllib.request.urlopen(URL)
             zfile = ZipFile(BytesIO(resp.read()))
             text1 = zfile.open(f'{name}.{lang1}-{lang2}.{lang1}').read().decode('utf-8')
             text2 = zfile.open(f'{name}.{lang1}-{lang2}.{lang2}').read().decode('utf-8')
-            with open((datadir/f'{lang1}-{lang2}.{lang1}').absolute(), 'w') as f:
+            with open((datadir/f'{lang1}-{lang2}/{lang1}-{lang2}.src').absolute(), 'w') as f:
                 f.write(text1)
-            with open((datadir/f'{lang1}-{lang2}.{lang2}').absolute(), 'w') as f:
+            with open((datadir/f'{lang1}-{lang2}/{lang1}-{lang2}.mt').absolute(), 'w') as f:
                 f.write(text2)
 
-        return ( datadir / f'{lang1}-{lang2}.{lang1}' ), ( datadir / f'{lang1}-{lang2}.{lang2}' ) 
+        return datadir/f'{lang1}-{lang2}', f'{lang1}-{lang2}'
 
     def _set_opus_tech(self, options, align):
-        self.train.readParallel(*self._get_opus('KDE4', 'v2', 'de', 'en'))
-        self.train.readParallel(*self._get_opus('GNOME', 'v1', 'de', 'en'))
-        self.train.readParallel(*self._get_opus('Ubuntu', 'v14.10', 'de', 'en'))
-        self.train.readParallel(*self._get_opus('PHP', 'v1', 'de', 'en'))
+        self.train.readExists(*self._get_opus('KDE4', 'v2', 'de', 'en'))
+        self.train.readExists(*self._get_opus('GNOME', 'v1', 'de', 'en'))
+        self.train.readExists(*self._get_opus('Ubuntu', 'v14.10', 'de', 'en'))
+        self.train.readExists(*self._get_opus('PHP', 'v1', 'de', 'en'))
         print(f'Loaded technical domain from OPUS, {len(self.train.data)} sentences in total')
         if align:
             self.train.add_alignment()
@@ -64,17 +64,13 @@ class Dataset:
     def _set_custom(self, name, options):
         langdir = pathlib.Path(name)
         if (langdir/'test').exists():
-            self.test.readWMT(langdir, 'test')
+            self.test.readExists(langdir, 'test')
         if (langdir/'dev').exists():
-            self.dev.readWMT(langdir, 'dev')
+            self.dev.readExists(langdir, 'dev')
         if (langdir/'train').exists():
-            # is it parallel or full WMT?
-            if (langdir/'train/train.tags').exists():
-                self.train.readWMT(langdir, 'train')
-            else:
-                self.train.readParallel(langdir/'train.src', langdir/'train.mt')
+            self.train.readExists(langdir, 'train')
         if (langdir/'blind').exists():
-            self.blind.readWMTBlind(langdir, 'blind')
+            self.blind.readExists(langdir, 'blind')
 
         print(f'Loaded custom data {name}, {len(self.train.data)} sentences in total')
 

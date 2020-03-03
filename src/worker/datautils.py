@@ -19,6 +19,13 @@ class DataUtils:
         options['dataset'].train.data = []
 
     def info(self, options, call):
+        if not all(hasattr(s, 'tags') for s in options['dataset'].train.data):
+            print('Not all sentences have QE tags')
+            return
+        if len(options['dataset'].train.data) == 0:
+            print('No training data')
+
+        print(f'Sentences: {len(options["dataset"].train.data)}')
         t_tgt = 0
         f_tgt = 0
         t_gap = 0
@@ -31,7 +38,7 @@ class DataUtils:
         t_all = t_tgt + t_gap
         f_all = f_tgt + f_gap
         if t_all == 0 and f_all == 0:
-            print('No training data')
+            print('Error in computing info')
         else:
             print(f'Target: |{t_tgt:9}|{f_tgt:9}|{t_tgt/(t_tgt+f_tgt)*100:6.2f}|')
             print(f'Gaps:   |{t_gap:9}|{f_gap:9}|{t_gap/(t_gap+f_gap)*100:6.2f}|')

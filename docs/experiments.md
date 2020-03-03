@@ -1,17 +1,23 @@
 # Experiment notes
 
-### 27-02-2020 base + part of generated (Vilda)
-`base_opus.yaml`, QUETCH at `477cd14`
+### 03-03-2020 
+`wmt19_pe_synth.yaml`, QUETCH at `5937ec3`
 
-WMT19 training data + 7k generated data. F1MULTI was `28.8%` at epoch 30 (slightly more at epoch 21).
+WMT19 training data + generated data from recomputed tags. For each target token, the unigram precision to post edited gold was considered (OK if exists in pe, otherwise BAD). We chose to make this case insensitive, but there is a switch in the config file. F1MULTI was `25.9%` at epoch 30. 
+
+
+### 27-02-2020 base + part of generated (Vilda)
+`wmt19_opus_random.yaml`, QUETCH at `477cd14`
+
+WMT19 training data + 7k generated data from generator random. F1MULTI was `28.8%` at epoch 30 (slightly more at epoch 21).
 
 ### 27-02-2020 base + post edited expanded (Vilda)
-`base_pe.yaml`
+`wmt19_pe_ok.yaml`
 
 I ran QUETCH (`477cd14` parameters). The generator simply took all of the post-edited sentences and marked them as `OK`. F1MULTI was `25.1%` at epoch 30.
 
 ### 27-02-2020 generated only (Vilda)
-`opus.yaml`, QUETCH at `477cd14`
+`opus_random.yaml`, QUETCH at `477cd14`
 
 Only 14k sentences of our data (only the change operation applied). F1MULTI was `16%` at epoch 29. This suggests, that the data _can be_ useful. Blind F1MULTI (based only on the distribution) would be `13.5%`. A proof follows:
 
@@ -44,6 +50,6 @@ Obviously there's a huge discrepancy between the two types of data (our syntheti
 Unfortunately doubling the amount of data did not improve the score (but had training F1MULTI at `75%`). What does this mean?
 
 ### 27-02-2020 base only (Vilda)
-`base.yaml`, QUETCH at `477cd14`
+`wmt19.yaml`, QUETCH at `477cd14`
 
 Simply the WMT19 training data. F1MULTI was `28.8%` at epoch 30.

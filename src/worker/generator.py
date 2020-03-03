@@ -25,8 +25,23 @@ class Generator:
         options['dataset'].train.data += to_add
         options['dataset'].train.add_alignment()
 
-    def generate(self, options, call):
+    def synthetize_gold(self, options, call):
+        case_insensitive = ('case_insensitive' in options['generator']) and (options['generator']['case_insensitive'])
+        for s in options['dataset'].train.data:
+            new_tags = []
+            # start gap token
+            new_tags.append(True)
+            source = [ (x.lower() if case_insensitive else x) for x in s.pe ]
+            for t in s.tgt:
+                if (t.lower() if case_insensitive else t) in source:
+                    new_tags.append(True)
+                else:
+                    new_tags.append(False)
+                # gap token, always True for now
+                new_tags.append(True)
+            s.tags = new_tags
 
+    def synthetize_random(self, options, call):
         all_words = set()
 
         do_change = 'change_prob' in options['generator']

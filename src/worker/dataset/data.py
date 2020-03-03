@@ -7,39 +7,37 @@ class Data():
     def __init__(self):
         self.data = []
 
-    def readWMT(self, dir, name):
+    def readExists(self, directory, name):
         def readFileLines(extension):
-            with open((dir/name/f'{name}.{extension}').absolute(),'r') as f:
-                return f.readlines()
-        src = readFileLines('src')
-        tgt = readFileLines('mt')
+            if (directory/f'{name}.{extension}').exists():
+                with open((directory/f'{name}.{extension}').absolute(),'r') as f:
+                    return f.readlines()
+            else:
+                return []
+
+        def alignNone(arr, length):
+            return arr + [None]*(length-len(arr))
+
+        src       = readFileLines('src')
+        tgt       = readFileLines('mt')
         alignment = readFileLines('src-mt.alignments')
-        pe = readFileLines('pe')
-        hter = readFileLines('hter')
-        tags = readFileLines('tags')
-        tags_src = readFileLines('source_tags')
+        pe        = readFileLines('pe')
+        hter      = readFileLines('hter')
+        tags      = readFileLines('tags')
+        tags_src  = readFileLines('source_tags')
+
+        targetLength = max([len(x) for x in [src, tgt, alignment, pe, hter, tags, tags_src]])
+
+        src       = alignNone(src, targetLength)
+        tgt       = alignNone(tgt, targetLength)
+        alignment = alignNone(alignment, targetLength)
+        pe        = alignNone(pe, targetLength)
+        hter      = alignNone(hter, targetLength)
+        tags      = alignNone(tags, targetLength)
+        tags_src  = alignNone(tags_src, targetLength)
+
         for args in zip(src, tgt, alignment, pe, tags, tags_src, hter):
             self.data.append(Sentence(*args))
-
-    def readWMTBlind(self, dir, name):
-        def readFileLinesBlind(extension):
-            with open((dir/name/f'test.{extension}').absolute(),'r') as f:
-                return f.readlines()
-        src = readFileLinesBlind('src')
-        tgt = readFileLinesBlind('mt')
-        alignment = readFileLinesBlind('src-mt.alignments')
-        for args in zip(src, tgt, alignment):
-            self.data.append(Sentence(*args, pe=None, tags=None, tags_src=None, hter=None))
-
-    def readParallel(self, file1, file2):
-        with open(file1, 'r') as f:
-            src = f.readlines()
-        with open(file2, 'r') as f:
-            tgt = f.readlines()
-        for args in zip(src, tgt):
-            sentence = Sentence(*args, alignment=None, pe=None, tags=None, tags_src=None, hter=None)
-            sentence.add_ok_tags()
-            self.data.append(sentence)
 
     def add_alignment(self):
         print('Doing alignment (this may take a while)')
@@ -70,7 +68,6 @@ class Data():
             newdata.append(s)
         self.data = newdata
 
-
     def save(self, dirName, name):
         root = (pathlib.Path(dirName) / name).absolute()
         pathlib.Path(root).mkdir(parents=True, exist_ok=True)
@@ -80,10 +77,15 @@ class Data():
             name = 'test'
         
         fpref = f'{root}/{name}.'
-        with open(f'{fpref}mt', 'w') as fMT, open(f'{fpref}src', 'w') as fSRC:
-            for sentence in self.data:
-                print(' '.join(sentence.tgt), file=fMT)
-                print(' '.join(sentence.src), file=fSRC)
+        if all(hasattr(s, 'tgt') for s in self.data):
+            with open(f'{fpref}mt', 'w') as fMT:
+                for sentence in self.data:
+                    print(' '.join(sentence.tgt), file=fMT)
+
+        if all(hasattr(s, 'src') for s in self.data):
+            with open(f'{fpref}src', 'w') as fSRC:
+                for sentence in self.data:
+                    print(' '.join(sentence.src), file=fSRC)
 
         if all(hasattr(s, 'alignment') for s in self.data):
             with open(f'{fpref}src-mt.alignments', 'w') as fPE:
