@@ -17,6 +17,8 @@ method:
   - DataUtils:info
   
   - Generator:mix
+  - DataUtils:split_dev:0.05
+
   - Loader:save
 
 generator:
