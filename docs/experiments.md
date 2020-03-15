@@ -1,6 +1,6 @@
 # Experiment notes
 
-### 15-02-2020 (Ondra)
+### 15-03-2020 (Ondra)
 `make tqt`, `b5685d8e14` 
 
 **Transfer learning**: train for 30 epochs on OPUS, then save the model and train for another 30 epochs on WMT data.
