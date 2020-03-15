@@ -12,7 +12,9 @@ create_opus_random:
 
 train_quetch:
 	python3 src/main.py config/quetch.yaml
-tqt:  # tgt=train_quetch_transfer
+
+tqt:  
+	# tgt=train_quetch_transfer
 	# this also creates opus data, then trains, then created wmt data, and trains again
 	python3 src/main.py config/data/opus.yaml           # load opus data
 	python3 src/main.py config/quetch.yaml   # train on opus data and save
