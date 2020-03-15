@@ -35,7 +35,7 @@ init-type: uniform
 #
 # TRAINING OPTIONS
 #
-epochs: 15 
+epochs: 30
 train-batch-size: 64
 valid-batch-size: 64
 
@@ -45,7 +45,7 @@ checkpoint-keep-only-best: 1
 checkpoint-early-stop-patience: 10
 
 optimizer: adam
-learning-rate: 0.001
+learning-rate: 0.0001
 #learning-rate-decay: 0.92
 #learning-rate-decay-start: 5
 
