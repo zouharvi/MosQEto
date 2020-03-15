@@ -35,7 +35,7 @@ init-type: uniform
 #
 # TRAINING OPTIONS
 #
-epochs: 50
+epochs: 15 
 train-batch-size: 64
 valid-batch-size: 64
 
