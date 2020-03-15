@@ -1,0 +1,6 @@
+---
+method:
+  - Quetch:train
+
+quetch_train: "./config/openkiwi/quetch_load_train.yaml"
+quetch_test: "./config/openkiwi/quetch_test.yaml"
