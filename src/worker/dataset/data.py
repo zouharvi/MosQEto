@@ -68,6 +68,10 @@ class Data():
             newdata.append(s)
         self.data = newdata
 
+    def add_tags(self, value):
+        for s in self.data:
+            s.add_tags(value)
+
     def save(self, dirName, name):
         root = (pathlib.Path(dirName) / name).absolute()
         pathlib.Path(root).mkdir(parents=True, exist_ok=True)

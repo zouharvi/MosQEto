@@ -20,6 +20,9 @@ class Sentence():
         alignment = alignment.rstrip('\n')
         self.alignment = [(int(x.split('-')[0]), int(x.split('-')[1])) for x in alignment.split(' ')]
 
+    def add_tags(self, value):
+        self.tags  = [value]*(2*len(self.tgt)+1)
+
     def __str__(self):
         def pTag(tag):
             return '1' if tag else '0'

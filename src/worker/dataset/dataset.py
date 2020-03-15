@@ -58,6 +58,8 @@ class Dataset:
         self.train.readExists(*self._get_opus('Ubuntu', 'v14.10', 'de', 'en'))
         self.train.readExists(*self._get_opus('PHP', 'v1', 'de', 'en'))
         print(f'Loaded technical domain from OPUS, {len(self.train.data)} sentences in total')
+
+        self.train.add_tags(True)
         if align:
             self.train.add_alignment()
 
