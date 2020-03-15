@@ -18,6 +18,14 @@ class DataUtils:
     def flush_train(self, options, call):
         options['dataset'].train.data = []
 
+    def split_dev(self, options, call):
+        portion = 0.1
+        if len(call) == 1:
+            portion = float(call[0])
+        lengthD = int(len(options['dataset'].train.data)*portion)
+        options['dataset'].dev.data  += options['dataset'].train.data[:lengthD]
+        options['dataset'].train.data = options['dataset'].train.data[lengthD:]
+
     def info(self, options, call):
         if not all(hasattr(s, 'tags') for s in options['dataset'].train.data):
             print('Not all sentences have QE tags')
