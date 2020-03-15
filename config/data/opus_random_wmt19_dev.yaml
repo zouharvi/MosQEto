@@ -1,5 +1,6 @@
 ---
 dataset_load:
+  - "wmt19/en-de"
   - "opus/tech/en-de"
 
 dataset_save: 
@@ -7,6 +8,12 @@ dataset_save:
 
 method:
   - Loader:rmdir:data_tmp
+  
+  # keep WMT19 dev, test and blind
+  - "Loading WMT19"
+  - Loader:load
+  - DataUtils:info
+  - DataUtils:flush_train
   
   # load opus
   - Loader:load:noalign
@@ -16,10 +23,6 @@ method:
   - DataUtils:info
   
   - Generator:mix
-  
-  # split 5% to dev
-  - DataUtils:split_dev:0.05
-
   - Loader:save
 
 generator:
