@@ -1,5 +1,11 @@
 # Experiment notes
 
+### 15-02-2020 (Ondra)
+`make tqt`, `b5685d8e14` 
+
+**Transfer learning**: train for 30 epochs on OPUS, then save the model and train for another 30 epochs on WMT data.
+Final dev set F1 on WMT is **0.0676**.
+
 ### 03-03-2020 
 `wmt19_pe_synth.yaml`, QUETCH at `5937ec3`
 

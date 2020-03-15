@@ -21,9 +21,6 @@ tqt:
 	python3 src/main.py config/data/wmt19.yaml			# load wmt19 data
 	python3 src/main.py config/quetch_load_train.yaml	# load model and train 
 
-t2:
-	python3 src/main.py config/data/wmt19.yaml			# load wmt19 data
-	python3 src/main.py config/quetch_load_train.yaml	# load model and train 
 
 validate:
 	python3 src/main.py config/validate.yaml
