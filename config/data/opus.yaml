@@ -9,6 +9,7 @@ method:
   - Loader:rmdir:data_tmp
   
   # load ONLY opus
+  #- DataUtils:flush_train
   - Loader:load:noalign
   - DataUtils:info
   - Generator:synthetize_random
