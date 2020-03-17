@@ -6,7 +6,6 @@ class Quetch:
     def train(self, options, call=[]):
         print("Doing some heavy training with a train dataset of size:", len(options['dataset'].train.data))
         kiwi.train(options['quetch_train'])
-        
 
     def inference(self, options, call=[]):
         """ Returns a list of predictions.

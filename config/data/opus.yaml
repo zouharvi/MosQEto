@@ -1,0 +1,27 @@
+---
+dataset_load:
+  - "opus/tech/en-de"
+
+dataset_save: 
+  - "data_all/"
+
+method:
+  - Loader:rmdir:data_tmp
+  
+  # load ONLY opus
+  #- DataUtils:flush_train
+  - Loader:load:noalign
+  - DataUtils:info
+  - Generator:synthetize_random
+  - DataUtils:head:14000
+  - DataUtils:info
+  
+  - Generator:mix
+  - DataUtils:split_dev:0.05
+
+  - Loader:save
+
+generator:
+  # remove_prob: 0.05
+  # append_prob: 0.05
+  change_prob: 0.12

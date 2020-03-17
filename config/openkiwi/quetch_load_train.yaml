@@ -2,7 +2,9 @@
 #
 model: quetch
 
-output-dir: runs/quetch
+load-model: ./runs/quetch/latest_epoch/model.torch
+
+output-dir: runs/quetch_loaded
 wmt18-format: true
 
 window-size: 3

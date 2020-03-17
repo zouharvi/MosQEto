@@ -1,6 +1,12 @@
 # Experiment notes
 
-### 03-03-2020 
+### 15-03-2020 (Ondra)
+`make tqt`, `b5685d8e14` 
+
+**Transfer learning**: train for 30 epochs on OPUS, then save the model and train for another 30 epochs on WMT data.
+Final dev set F1 on WMT is **0.0676**.
+
+### 03-03-2020  (Vilda)
 `wmt19_pe_synth.yaml`, QUETCH at `5937ec3`
 
 WMT19 training data + generated data from recomputed tags. For each target token, the unigram precision to post edited gold was considered (OK if exists in pe, otherwise BAD). We chose to make this case insensitive, but there is a switch in the config file. F1MULTI was `25.9%` at epoch 30. 
