@@ -1,0 +1,28 @@
+---
+dataset_load:
+  - "wmt19/en-de"
+  - "custom/data_raw/bad_mt"
+
+dataset_save: 
+  - "data_all/"
+
+method:
+  - Loader:rmdir:data_tmp
+  
+  # keep WMT19 dev, test and blind
+  - "Loading WMT19"
+  - Loader:load
+  - DataUtils:info
+  - DataUtils:flush_train
+  
+  # load mt (assume there are files data_raw/bad_mt/train/train.{src,mt,pe})
+  - Loader:load
+  - DataUtils:info
+  - Generator:synthetize_gold
+  - DataUtils:info
+  
+  - Generator:mix
+  - Loader:save
+
+generator:
+  case_insensitive: True

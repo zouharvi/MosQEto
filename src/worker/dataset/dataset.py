@@ -66,13 +66,13 @@ class Dataset:
     def _set_custom(self, name, options):
         langdir = pathlib.Path(name)
         if (langdir/'test').exists():
-            self.test.readExists(langdir, 'test')
+            self.test.readExists(langdir/'test', 'test')
         if (langdir/'dev').exists():
-            self.dev.readExists(langdir, 'dev')
+            self.dev.readExists(langdir/'dev', 'dev')
         if (langdir/'train').exists():
-            self.train.readExists(langdir, 'train')
+            self.train.readExists(langdir/'train', 'train')
         if (langdir/'blind').exists():
-            self.blind.readExists(langdir, 'blind')
+            self.blind.readExists(langdir/'blind', 'blind')
 
         print(f'Loaded custom data {name}, {len(self.train.data)} sentences in total')
 
@@ -97,7 +97,7 @@ class Dataset:
                 self._set_opus_tech(options, align)
                 return
         elif name[0] == 'custom':
-            self._set_custom(name[1], options)
+            self._set_custom('/'.join(name[1:]), options)
             return
 
         raise Exception(f"Unsupported dataset {name}")
