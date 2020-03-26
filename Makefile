@@ -1,3 +1,14 @@
+help:
+	@echo "\
+create_wmt\n\
+create_wmt_pe_ok\n\
+create_wmt_pe_synth\n\
+create_wmt_opus_random\n\
+create_opus_random\n\
+train_quetch\n\
+tqt  # transfer learning\n\
+validate"
+
 create_wmt:
 	python3 src/main.py config/data/wmt19.yaml
 create_wmt_pe_ok:
