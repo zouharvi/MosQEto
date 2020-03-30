@@ -27,8 +27,10 @@ train_quetch:
 tqt:  
 	# tgt=train_quetch_transfer
 	# this also creates opus data, then trains, then created wmt data, and trains again
+	#
+	#python3 src/main.py config/data/wmt19.yaml			# load wmt19 data
 	python3 src/main.py config/data/opus.yaml           # load opus data
-	python3 src/main.py config/quetch.yaml   # train on opus data and save
+	python3 src/main.py config/quetch.yaml				# train 
 	python3 src/main.py config/data/wmt19.yaml			# load wmt19 data
 	python3 src/main.py config/quetch_load_train.yaml	# load model and train 
 

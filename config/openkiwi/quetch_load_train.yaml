@@ -2,7 +2,7 @@
 #
 model: quetch
 
-load-model: ./runs/quetch/latest_epoch/model.torch
+load-model: ./runs/quetch/best_model.torch
 
 output-dir: runs/quetch_loaded
 wmt18-format: true
@@ -25,8 +25,8 @@ freeze-embeddings: false
 bad-weight: 3.0
 
 # initialization
-init-support: 0.1
-init-type: uniform
+#init-support: 0.1
+#init-type: uniform
 
 #### Pretrained Embedding Options ###
 ## pip-install the polyglot package to use these
@@ -37,7 +37,7 @@ init-type: uniform
 #
 # TRAINING OPTIONS
 #
-epochs: 30
+epochs: 50
 train-batch-size: 64
 valid-batch-size: 64
 
