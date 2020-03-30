@@ -1,5 +1,20 @@
 # Experiment notes
 
+### 30-03-2020 (Ondra)
+**Fixing transfer learning**
+I've tried: 
+
+- modifying learning rate and number of epochs for both models
+- train on wmt, save, load, train again
+- switch quetch for nuqe. 
+
+None of this helps. When using nuqe the drop in F1 is not that significant but stil considerable.
+Also, I've noticed, when loading a saved model, following info is printed: 
+`[kiwi.data.utils load_vocabularies_to_fields:126] Loaded vocabularies from runs/quetch/best_model.torch`
+
+which seems a little weird since I am not loading vocabularies.
+I've tried to also explicitly load vocab from the vocab.torch file (and run again several settings - lr, epochs, ...) This did not help.
+
 ### 15-03-2020 (Ondra)
 `make tqt`, `b5685d8e14` 
 
