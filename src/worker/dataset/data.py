@@ -9,7 +9,7 @@ class Data():
 
     def readExists(self, directory, name):
         def readFileLines(extension):
-            print((directory/f'{name}.{extension}').absolute())
+            # print((directory/f'{name}.{extension}').absolute())
             if (directory/f'{name}.{extension}').exists():
                 with open((directory/f'{name}.{extension}').absolute(),'r') as f:
                     return f.readlines()
@@ -26,7 +26,7 @@ class Data():
         hter      = readFileLines('hter')
         tags      = readFileLines('tags')
         tags_src  = readFileLines('source_tags')
-        print(len(src))
+        # print(len(src))
 
         targetLength = max([len(x) for x in [src, tgt, alignment, pe, hter, tags, tags_src]])
 
