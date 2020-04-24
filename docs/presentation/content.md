@@ -73,10 +73,10 @@ Quality estimation tags for tokens and gaps on German sentence translated from E
 ---
 # MosQEto - Infrastrucutre - Config example
 
-class: split-40
+<!-- class: split-40 -->
 
 .column[
-<!-- <div style='margin-top: -30px;'></div> -->
+<div style='margin-top: -30px;'></div>
 ```
 dataset_load:
   - "opus/tech/en-de"
@@ -108,13 +108,18 @@ generator:
   
 __Can you guess what this script does?__
 
-Hints:
-- __Loader:load__ pops one item of the __dataset\_load__ stack
-- __"opus/tech/en-de"__ is just a parallel corpus
 
-Note on __DataUtils:info__:
+<div style='margin-top: 50px;'></div>
+
+- `Loader:load` pops one item of the `dataset_load` stack
+- `"opus/tech/en-de"` is just a parallel corpus
+
+<div style='margin-top: 50px;'></div>
+
+
+Note on `__DataUtils:info__`:
 - The most important command we implemented
-- It let us examine the distribution of current data
+- Lets us examine the distribution of current data
 
 ```
 Sentences: 20442
