@@ -132,3 +132,22 @@ All:    |   716148|    51332| 93.31% OK|
 ---
 # MosQEto - Experiments
 
+- We performed several experiments using OpenKiwi framework with QUETCH and NuQE
+- TODO (ondra): notes on openkiwi config
+
+### Baseline 
+- WMT19 data and run QUETCH for 30 epochs
+
+- `F1_{MULTI}` is **28.8%** at 30th epoch
+- Opus data and QUETCH: **16%** at 29th epoch
+
+---
+# MosQEto - Experiments cont.
+
+- Mark all post-edited senteces as `OK`, QUETCH, WMT19: 25.1% `F1_{MULTI}`
+- Add 7k randomly generated tags (with probability 0.12 change tag on OPUS data) to WMT19 data, 28.8% at epoch 30.
+- Add new, generated data to WMT19, such that a tag is `OK` if the word (case-insensitive) exists in post edited sentece, `BAD` otherwise. This yields 25.9% `F1_{MULTI}` at epoch 30.
+- Transfer learning (failed): train (NuQE and QUETCH) for 30 epochs on OPUS, then train for another 30 epochs on WMT19. Final F1 score: 0.07%
+We have tried adjusting learning rates, number of epochs and so on.i Then we tried "transfer" from WMT19 to WMT19 - the first training worked, after loading the model, F1 decreased. So we arrived at a conclusion that the problem is with OpenKiwi framework.
+
+
