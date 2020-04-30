@@ -1,7 +1,7 @@
 
 class: center, middle
 
-# MosQEto
+# MosQEto 🦟
 ### Vilém Zouhar, Ondřej Měkota
 ### 2020, MFF
 
@@ -130,24 +130,83 @@ All:    |   716148|    51332| 93.31% OK|
 ]
 
 ---
-# MosQEto - Experiments
+# MosQEto - Experiments 1
 
 - We performed several experiments using OpenKiwi framework with QUETCH and NuQE
-- TODO (ondra): notes on openkiwi config
-
-### Baseline 
-- WMT19 data and run QUETCH for 30 epochs
-
-- `F1_{MULTI}` is **28.8%** at 30th epoch
-- Opus data and QUETCH: **16%** at 29th epoch
+- Oriented on dataset preparation and transfer learning
+- TODO (Ondra): notes on OpenKiwi config
+- See [https://github.com/zouharvi/MosQEto/blob/master/docs/experiments.md](github.com/zouharvi/MosQEto/blob/master/docs/experiments.md) for more details, unexplained phenomena etc.
 
 ---
-# MosQEto - Experiments cont.
+# MosQEto - Corpora
 
+#### WMT19
+- QE annotated (src, tgt, qe), IT domain
+- 14k sentences, also contains post-edited sentences
+- **in the New From Template dialog box , locate and select a template , and click New .**
+- **wählen Sie im Dialogfeld "Neu aus Vorlage" eine Vorlage aus und klicken Sie auf "Neu."**
+- **1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1** (all `OK`)
+
+#### OPUS
+- Only paralel corpora (src, tgt)
+- Copora to match the IT domain: GNOME, KDE4, PHP, Ubuntu
+- 300k sentences
+- **The default plugin layout for the bottom panel**
+- **Das vorgegebene Plugin-Layout der unteren Leiste**
+
+---
+# MosQEto - Experiments 2
+
+#### Baseline 
+- Only WMT19 data and run QUETCH for 30 epochs
+- `F1_{MULTI}` is **28.8%**
+- Disclaimer: We did not surpass this.
+
+#### Small OPUS only with changes
+- 14k sentences from OPUS
+- Change every word to a different one (using zerogram) with probablity **12%** and set the corresponding tag to `BAD`
+- `F1_{MULTI}` is **16%**
+
+---
+# MosQEto - Experiments 3
+
+#### WMT19 + WMT19 post-edited
+- Mark all post-edited WMT19 sentences as `OK`
+- Mix with 14k of WMT19 baseline = 28k sentences
+- `F1_{MULTI}` is **25.1%**
+
+#### WMT19 + Small OPUS only with changes
+- 7k OPUS 'changed' data
+- Mixed with WMT19 baseline = 21k sentences
+- `F1_{MULTI}` is **28.8%**
+
+---
+# MosQEto - Experiments 4
+
+#### WMT19 + PE synth
+- Take every sentence from WMT19 and add manual QE tags: `OK` iff a token appears in the post-edited version
+- Every (src, tgt) has now two arrays of QE tags
+- Mix with 14k of WMT19 baseline = 28k sentences
+- `F1_{MULTI}` is **25.9%**
+
+#### Transfer learning (failed)
+- Train (NuQE and QUETCH) for 30 epochs on OPUS, then for 30 epochs on WMT19
+- `F1_{MULTI}` is **0.07%**
+- We tried adjusting learning rates, number of epochs and so on
+- We tried "transfer" from WMT19 to WMT19 - the first training worked, after loading the model, F1 decreased
+- Conclusion that the problem is with OpenKiwi framework
+- See `experiments.md` for more details about a possible bug
+
+<!--
+- Opus data and QUETCH: **16%** at 29th epoch
 - Mark all post-edited senteces as `OK`, QUETCH, WMT19: 25.1% `F1_{MULTI}`
-- Add 7k randomly generated tags (with probability 0.12 change tag on OPUS data) to WMT19 data, 28.8% at epoch 30.
-- Add new, generated data to WMT19, such that a tag is `OK` if the word (case-insensitive) exists in post edited sentece, `BAD` otherwise. This yields 25.9% `F1_{MULTI}` at epoch 30.
-- Transfer learning (failed): train (NuQE and QUETCH) for 30 epochs on OPUS, then train for another 30 epochs on WMT19. Final F1 score: 0.07%
-We have tried adjusting learning rates, number of epochs and so on.i Then we tried "transfer" from WMT19 to WMT19 - the first training worked, after loading the model, F1 decreased. So we arrived at a conclusion that the problem is with OpenKiwi framework.
+- Add 7k randomly generated tags (with probability 0.12 change tag on OPUS data) to WMT19 data, 28.8% at epoch 30
+- Add new, generated data to WMT19, such that a tag is `OK` if the word (case-insensitive) exists in post edited sentece, `BAD` otherwise. This yields 25.9% `F1_{MULTI}` at epoch 30
+-->
 
+---
+# MosQEto - Future work
 
+- Revise what went wrong with the transfer learning
+- Come up with new ways of QE data synthesis
+- - We hoped mostly for the post-edited data synthesis, but that failed
