@@ -71,7 +71,7 @@ Quality estimation tags for tokens and gaps on German sentence translated from E
 - Remaining time spend on experiments
 
 ---
-# MosQEto - Infrastrucutre - Config example
+# MosQEto - Infrastructure - Config example
 
 <!-- class: split-40 -->
 
