@@ -130,14 +130,6 @@ All:    |   716148|    51332| 93.31% OK|
 ]
 
 ---
-# MosQEto - Experiments 1
-
-- We performed several experiments using OpenKiwi framework with QUETCH and NuQE
-- Oriented on dataset preparation and transfer learning
-- TODO (Ondra): notes on OpenKiwi config
-- See [https://github.com/zouharvi/MosQEto/blob/master/docs/experiments.md](github.com/zouharvi/MosQEto/blob/master/docs/experiments.md) for more details, unexplained phenomena etc.
-
----
 # MosQEto - Corpora
 
 #### WMT19
@@ -153,6 +145,14 @@ All:    |   716148|    51332| 93.31% OK|
 - 300k sentences
 - **The default plugin layout for the bottom panel**
 - **Das vorgegebene Plugin-Layout der unteren Leiste**
+
+---
+# MosQEto - Experiments 1
+
+- We performed several experiments using OpenKiwi framework with QUETCH and NuQE
+- Oriented on dataset preparation and transfer learning
+- Notes on OpenKiwi config
+- See [https://github.com/zouharvi/MosQEto/blob/master/docs/experiments.md](github.com/zouharvi/MosQEto/blob/master/docs/experiments.md) for more details, unexplained phenomena etc.
 
 ---
 # MosQEto - Experiments 2
