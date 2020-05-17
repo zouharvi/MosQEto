@@ -63,10 +63,10 @@ Quality estimation tags for tokens and gaps on German sentence translated from E
 
 - Most of dev time spent here (50-70%)
 - We suspect turing completeness
-- An experiment (of any kind: training, testing, data creatin) can be easily defined using a single YAML file
+- An experiment (of any kind: training, testing, data creation) can be easily defined using a single YAML file
 - Oriented for data manipulation, but can be used for anything if relevant `Worker` classes are implemented
 - We unintentionally created a system for robust experiment replication
-- Datesets are loaded automatically
+- Datasets are loaded automatically
 - `fast_align` is also part of the whole system
 - Remaining time spend on experiments
 
